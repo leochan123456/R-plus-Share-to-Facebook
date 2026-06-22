@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Facebook Custom Media Creator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero-panel">
+        <div class="hero-copy">
+          <h1>Custom Media Creator &amp; Facebook Sharing Engine</h1>
+          <p>Create a listing asset, generate a compliant draft caption, and open the Facebook share flow from your Codespace.</p>
+        </div>
+        <div class="form-card">
+          <label for="template-select">Image theme template</label>
+          <select id="template-select" aria-label="Select image theme template">
+            <option value="Modern Lifestyle">Modern Lifestyle</option>
+            <option value="Bold Launch">Bold Launch</option>
+            <option value="Minimal Marketing">Minimal Marketing</option>
+            <option value="Luxury Showcase">Luxury Showcase</option>
+          </select>
+
+          <label for="asset-input">Upload listing photo or video</label>
+          <input id="asset-input" type="file" accept="image/*,video/*" />
+          <div id="asset-preview" class="asset-preview"></div>
+
+          <label for="caption-input">Generated marketing caption</label>
+          <textarea id="caption-input" rows="6" placeholder="Your generated caption will appear here..."></textarea>
+
+          <button id="share-button" type="button">Generate &amp; Share to Facebook</button>
+          <p id="status-text" class="status-text"></p>
+        </div>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
