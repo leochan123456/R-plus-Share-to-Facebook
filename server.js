@@ -155,6 +155,17 @@ app.get('/post/:id', (req, res) => {
 </html>`);
 });
 
+// 404 handler for undefined API routes
+app.use('/api', (req, res) => {
+  return res.status(404).json({ error: 'API endpoint not found.' });
+});
+
+// Catch-all error handler for JSON responses
+app.use((err, req, res, next) => {
+  console.error('Server error:', err);
+  res.status(err.status || 500).json({ error: err.message || 'Internal server error.' });
+});
+
 app.listen(port, () => {
   console.log(`Facebook Custom Media Creator backend running on http://localhost:${port}`);
 });

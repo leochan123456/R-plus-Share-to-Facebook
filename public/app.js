@@ -80,6 +80,16 @@ async function uploadAsset(file) {
     body: formData
   });
 
+  if (!response.ok) {
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('application/json')) {
+      const result = await response.json();
+      throw new Error(result.error || `Upload failed: ${response.status}`);
+    } else {
+      throw new Error(`Server returned HTML instead of JSON. Status: ${response.status}`);
+    }
+  }
+
   return response.json();
 }
 
@@ -160,11 +170,17 @@ shareButton.addEventListener('click', async () => {
       body: JSON.stringify({ theme, caption, assetUrl: uploadedAssetUrl })
     });
 
-    const result = await response.json();
-
     if (!response.ok) {
-      throw new Error(result.error || 'Unable to create post.');
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        const result = await response.json();
+        throw new Error(result.error || `Server error: ${response.status}`);
+      } else {
+        throw new Error(`Server returned HTML instead of JSON. Status: ${response.status}. Check server logs.`);
+      }
     }
+
+    const result = await response.json();
 
     const copied = await copyCaptionToClipboard(caption);
     if (copied) {
